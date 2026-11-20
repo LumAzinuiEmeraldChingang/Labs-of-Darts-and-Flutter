@@ -89,16 +89,9 @@ class ProfileCard extends StatelessWidget {
             const CircleAvatar(radius: 30, child: Icon(Icons.person)),
             const SizedBox(width: 16),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    person.name,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(person.role),
-                ],
+              child: Text(
+                '${person.name} - ${person.role} - this is a very long text that will not fit on one line of the screen',
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
           ],
