@@ -19,6 +19,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Person {
+  final String name;
+  final String role;
+  const Person(this.name, this.role);
+}
+
+const people = [
+  Person('Lum Emerald', 'Student'),
+  Person('Beri Ndamnsa', 'Professor'),
+  Person('Nganso Brenda', 'Engineer'),
+];
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -46,47 +58,48 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const ProfileCard(), 
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: people.length,
+        itemBuilder: (context, index) {
+          return ProfileCard(person: people[index]);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        
       ),
     );
   }
 }
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({super.key});
+  const ProfileCard({super.key, required this.person});
+
+  final Person person;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
           children: [
             const CircleAvatar(radius: 30, child: Icon(Icons.person)),
             const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
-                  'Lum Emerald',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text('Student'),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    person.name,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text(person.role),
+                ],
+              ),
             ),
           ],
         ),
